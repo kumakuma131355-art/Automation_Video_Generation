@@ -1,0 +1,51 @@
+from plant_module import plant_Entities
+from count_module import get_pos_now
+from Pumpkin_module import adjust_Pumpkin
+from back_module import back_origin
+
+
+for i in range(get_pos_y()):
+	move(South)
+	 
+while True:
+	for i in range(get_world_size()):
+		y=get_pos_y()
+		x=get_pos_x()
+		
+		while can_harvest()==False:
+			if get_entity_type() == Entities.Dead_Pumpkin:
+				break
+			if get_entity_type() == None:
+				break
+			do_a_flip()
+			
+		if y <= 3: 
+			if get_pos_now() == [3,3]:
+				plant_Entities(Entities.Pumpkin)
+				back_origin()
+				while adjust_Pumpkin(4) == False:
+					back_origin()
+				
+			elif x <= 3:
+				harvest()
+				plant_Entities(Entities.Pumpkin)
+			else:
+				harvest()
+				plant_Entities(Entities.Carrot)
+				
+		elif y >= 4:
+			if y == 4:
+				if x % 2 == 1:
+					harvest()
+					plant_Entities(Entities.Tree)
+				else:
+					harvest()	
+			if y == 5:
+				if x % 2 == 0:
+					harvest()
+					plant_Entities(Entities.Tree)
+				else:
+					harvest()
+			
+		move(North)
+	move(East)
